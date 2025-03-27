@@ -1,0 +1,6 @@
+materials/*
+cache/*
+product/*
+venv/*
+__pycache__
+.obsidian
