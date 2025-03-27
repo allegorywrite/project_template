@@ -4,3 +4,4 @@ product/*
 venv/*
 __pycache__
 .obsidian
+!.gitkeep
