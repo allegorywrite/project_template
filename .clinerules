@@ -1,8 +1,59 @@
 ### 目的
-console.mdの目的を達成する
+materials/integrated.mdの内容を論文の形式に変換して
+tex/template_v1.0.texを執筆する
 
 ### 手順
-console.mdを参照
+1. 論文を執筆するためのサーベイ要件を詳細にまとめてmdファイルを作成する
+    - 特に書き出し及び関連研究についてのサーベイ要件をまとめる
+    - サーベイは以下の3点について分割してサーベイしてください
+    1. 研究分野の社会，技術的背景，関連研究(=>surveys/task_1/answer_background.md)
+    2. 本研究の新規性及び貢献(=>surveys/task_1/answer_contribution.md)
+    3. 研究の基礎理論における権威的な論文(=>surveys/task_1/answer_theory.md)
+2. 論文を執筆する
+    - 論文の執筆はだ，である調の日本語で行う
+    - 元となるマークダウンデータはコアの理論部分のみであるため，
+      論文執筆の際には各変数の説明, \Eqrefによる数式への言及, 意図の説明など論文に適切な文章に変更すること．
+
+### 補足
+・今回はサーベイが既に完了しているため適宜
+surveys/task_1/answer_background.md, surveys/task_1/answer_contribution.md, surveys/task_1/answer_theory.md
+を参照して論文執筆を行ってください．
+
+・大まかな章立ては以下に従ってください
+
+Introduction（序論）
+
+共有視野保証の重要性と背景
+既存研究の課題
+本研究の貢献
+Preliminary: Control Barrier Function（予備知識）
+
+CBFの基本概念
+高次CBFの説明
+Problem Formulation（問題設定）
+
+システムモデル（SE(3)上の剛体運動）
+共有視野の定義と問題設定
+CBFs for Shared Field of View（共有視野のためのCBF）
+
+単一特徴点追従の安全制約
+複数特徴点追従の安全制約
+複数エージェントの共通特徴点追従
+分散型実装
+Higher-Order CBFs for Second-Order Systems（二次系システムのための高次CBF）
+
+SE(3)における離散ダイナミクス
+ホロノミック系とQP定式化
+非ホロノミック系への拡張
+複数エージェント・複数特徴点の場合
+Simulation Results（シミュレーション結果）
+
+単一/複数特徴点のシミュレーション
+分散実装の性能評価
+Conclusion（結論）
+
+研究成果のまとめ
+今後の課題
 
 ### サーベイ規則
 サーベイは `surveys/task_{i}/request.md`を作成してサーベイ要件をまとめる．
@@ -12,5 +63,24 @@ console.mdを参照
 `utils/run_mistral_ocr.py`スクリプトを使ってOCR，その他の拡張子はpdf化してからOCRする．OCRしたtext等はcacheに保存する．
 - pythonのパッケージ管理はvenv仮想環境を使用
 
-### 資料及びコード作成規則
-あなたは出力文字数が一定値を超えると途切れるようになっています．長い文章及びコードを出力する場合は，適宜区切り，write_in_fileではなくreplase_in_fileを用いてファイルを更新してください．
+### Tex執筆規則
+・1カラム
+・論文形式の執筆ではデータサイズが大きくなるため，章ごとにファイルを分割する．
+・数式はすべて以下の用にequation環境及びaligned環境で表現する．
+・すべての数式にラベルを付ける
+・!!!重要!!! \mathbb, \mathcal, \mathfrakなど
+テキストの記体コマンドは{}で囲むこと
+\begin{equation}
+\begin{aligned}
+\mathbf{u}^* = \arg\min_{{\mathcal{u}} \in {\mathfrak{R}}^m} & \|{\mathrm{u}} - {\mathbf{u}}_{\text{nom}}\|^2 \\
+\text{s.t.} & L_f h({\mathbf{x}}) + L_g h({\mathbf{x}}){\mathbf{u}} + \alpha(h({\mathbf{x}})) \geq 0
+\label{eq:opt}
+\end{aligned}
+\end{equation}
+
+### 資料及びコード実装規則
+・あなたは出力文字数が一定値を超えると途切れるようになっています．長い文章及びコードを出力する場合は，適宜区切り，write_in_fileではなくreplase_in_fileを用いてファイルを更新してください．
+・実装したコードをテストして，validationが完了したことを確認してください．あらゆるエラーを排除してください．
+
+### 実行
+`compile.sh`を実行してvalidationを実行してください。

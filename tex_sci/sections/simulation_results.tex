@@ -1,0 +1,168 @@
+\section{Simulation Results}
+
+本章では，提案手法の有効性を検証するためのシミュレーション結果を示す．まず，単一特徴点追従のシミュレーション結果を示し，次に複数特徴点追従，そして複数エージェントの共通特徴点追従の結果を示す．最後に，分散実装の性能評価を行う．
+
+\subsection{シミュレーション設定}
+
+シミュレーションでは，以下のパラメータを用いた．
+\begin{itemize}
+    \item ドローンの質量: $m = 1.0$ kg
+    \item 慣性モーメント: $J = \mathrm{diag}(0.01, 0.01, 0.02)$ kg$\cdot$m$^2$
+    \item カメラの視野角: $\Psi_\mathcal{F} = 60^\circ$
+    \item 離散時間ステップ: $h = 0.01$ s
+    \item CBFのゲインパラメータ: $\gamma = 1.0$, $\gamma_0 = 1.0$, $\gamma_1 = 2.0$
+    \item 確率パラメータ: $q = 0.8$
+    \item 目標位置への追従重み: $Q_1 = \mathrm{diag}(1.0, 1.0, 1.0)$
+    \item 制御入力の重み: $Q_2 = \mathrm{diag}(0.1, 0.1, 0.1, 0.1, 0.1, 0.1)$
+\end{itemize}
+
+環境内には複数の特徴点を配置し，エージェントは初期位置から目標位置に向かって移動する．シミュレーションは，Python環境で実装し，QP問題の解法にはCVXPYを用いた．
+
+\subsection{単一特徴点追従のシミュレーション}
+
+まず，単一のエージェントが単一の特徴点を視野内に保持しながら目標位置に移動するシミュレーションを行った．図\ref{fig:single_feature_trajectory}に，エージェントの軌跡と特徴点の位置を示す．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/single_feature_trajectory.eps}
+    \caption{単一特徴点追従におけるエージェントの軌跡．青線はエージェントの軌跡，赤点は特徴点の位置，緑点は目標位置を表す．}
+    \label{fig:single_feature_trajectory}
+\end{figure}
+
+図\ref{fig:single_feature_cbf_value}に，シミュレーション中のCBF値の推移を示す．CBF値は常に正の値を保っており，安全制約が満たされていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/single_feature_cbf_value.eps}
+    \caption{単一特徴点追従におけるCBF値の推移．CBF値が常に正であり，安全制約が満たされていることを示している．}
+    \label{fig:single_feature_cbf_value}
+\end{figure}
+
+図\ref{fig:single_feature_control_input}に，制御入力の推移を示す．制御入力は滑らかに変化しており，実機への適用が可能であることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/single_feature_control_input.eps}
+    \caption{単一特徴点追従における制御入力の推移．(a)並進力，(b)トルク．}
+    \label{fig:single_feature_control_input}
+\end{figure}
+
+\subsection{複数特徴点追従のシミュレーション}
+
+次に，単一のエージェントが複数の特徴点を視野内に保持しながら目標位置に移動するシミュレーションを行った．図\ref{fig:multi_feature_trajectory}に，エージェントの軌跡と特徴点の位置を示す．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_feature_trajectory.eps}
+    \caption{複数特徴点追従におけるエージェントの軌跡．青線はエージェントの軌跡，赤点は特徴点の位置，緑点は目標位置を表す．}
+    \label{fig:multi_feature_trajectory}
+\end{figure}
+
+図\ref{fig:multi_feature_probability}に，各特徴点の視野内確率$P_i^l$の推移を示す．確率値は0から1の間で変化しており，エージェントの移動に伴って特徴点が視野内に入ったり出たりする様子がわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_feature_probability.eps}
+    \caption{複数特徴点追従における各特徴点の視野内確率$P_i^l$の推移．異なる色の線は異なる特徴点に対応している．}
+    \label{fig:multi_feature_probability}
+\end{figure}
+
+図\ref{fig:multi_feature_cbf_value}に，シミュレーション中のCBF値の推移を示す．CBF値は常に正の値を保っており，安全制約が満たされていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_feature_cbf_value.eps}
+    \caption{複数特徴点追従におけるCBF値の推移．CBF値が常に正であり，安全制約が満たされていることを示している．}
+    \label{fig:multi_feature_cbf_value}
+\end{figure}
+
+\subsection{複数エージェントの共通特徴点追従}
+
+次に，複数のエージェントが共通の特徴点を視野内に保持しながら目標位置に移動するシミュレーションを行った．図\ref{fig:multi_agent_trajectory}に，エージェントの軌跡と特徴点の位置を示す．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_agent_trajectory.eps}
+    \caption{複数エージェントの共通特徴点追従におけるエージェントの軌跡．青線と緑線はそれぞれエージェント1と2の軌跡，赤点は特徴点の位置，青点と緑点はそれぞれエージェント1と2の目標位置を表す．}
+    \label{fig:multi_agent_trajectory}
+\end{figure}
+
+図\ref{fig:multi_agent_cbf_value}に，シミュレーション中のCBF値の推移を示す．CBF値は常に正の値を保っており，安全制約が満たされていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_agent_cbf_value.eps}
+    \caption{複数エージェントの共通特徴点追従におけるCBF値の推移．CBF値が常に正であり，安全制約が満たされていることを示している．}
+    \label{fig:multi_agent_cbf_value}
+\end{figure}
+
+図\ref{fig:multi_agent_shared_features}に，共有視野内の特徴点数の推移を示す．共有視野内の特徴点数は常に設定した最小数$m$以上を保っており，共有視野が保証されていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/multi_agent_shared_features.eps}
+    \caption{複数エージェントの共通特徴点追従における共有視野内の特徴点数の推移．赤線は設定した最小数$m$を表す．}
+    \label{fig:multi_agent_shared_features}
+\end{figure}
+
+\subsection{分散実装の性能評価}
+
+最後に，分散実装の性能評価を行った．図\ref{fig:distributed_convergence}に，分散最適化アルゴリズム（PDMM）の収束性を示す．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/distributed_convergence.eps}
+    \caption{分散最適化アルゴリズム（PDMM）の収束性．(a)目的関数値の推移，(b)制約違反の推移．}
+    \label{fig:distributed_convergence}
+\end{figure}
+
+図\ref{fig:distributed_vs_centralized}に，分散実装と中央集権的実装の比較を示す．分散実装は中央集権的実装と比較して，計算時間が短く，スケーラビリティに優れていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/distributed_vs_centralized.eps}
+    \caption{分散実装と中央集権的実装の比較．(a)計算時間，(b)通信量．}
+    \label{fig:distributed_vs_centralized}
+\end{figure}
+
+\subsection{二次系システムのためのHOCBFの評価}
+
+最後に，二次系システムのためのHOCBFの評価を行った．図\ref{fig:hocbf_trajectory}に，HOCBFを用いたエージェントの軌跡を示す．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/hocbf_trajectory.eps}
+    \caption{HOCBFを用いたエージェントの軌跡．青線はエージェントの軌跡，赤点は特徴点の位置，緑点は目標位置を表す．}
+    \label{fig:hocbf_trajectory}
+\end{figure}
+
+図\ref{fig:hocbf_cbf_value}に，シミュレーション中のHOCBF値の推移を示す．HOCBF値は常に正の値を保っており，安全制約が満たされていることがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/hocbf_cbf_value.eps}
+    \caption{HOCBFを用いたシミュレーションにおけるHOCBF値の推移．HOCBF値が常に正であり，安全制約が満たされていることを示している．}
+    \label{fig:hocbf_cbf_value}
+\end{figure}
+
+図\ref{fig:hocbf_vs_cbf}に，HOCBFとCBFの比較を示す．HOCBFはCBFと比較して，より滑らかな制御入力を生成し，安全制約の満足度も高いことがわかる．
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{Fig/hocbf_vs_cbf.eps}
+    \caption{HOCBFとCBFの比較．(a)制御入力の滑らかさ，(b)安全制約の満足度．}
+    \label{fig:hocbf_vs_cbf}
+\end{figure}
+
+\subsection{考察}
+
+シミュレーション結果から，以下のことがわかった．
+
+\begin{enumerate}
+    \item 提案手法は，単一特徴点追従，複数特徴点追従，複数エージェントの共通特徴点追従のいずれの場合も，安全制約を満たしながら目標位置への追従が可能である．
+    \item 確率的アプローチにより，複数の特徴点を視野内に保持する制約を滑らかに表現でき，最適化問題の解法が容易になる．
+    \item 分散実装は，中央集権的実装と比較して計算効率が高く，スケーラビリティに優れている．
+    \item HOCBFは，二次系システムに対して滑らかな制御入力を生成し，安全制約の満足度も高い．
+\end{enumerate}
+
+これらの結果から，提案手法は実機への適用が期待できる．特に，複数のドローンが協調して自己位置推定を行う場合に，視野共有を保証することで推定精度の向上が期待できる．

@@ -2,7 +2,7 @@
 
 # 監視対象のTeXファイル
 TEX_FILE="template_v1.0.tex"
-DIR="/home/initial/lab_ws/ml_plan/tex"
+DIR="/home/initial/lab_ws/cbf_seminar/tex"
 
 # カレントディレクトリを設定
 cd "$DIR"

@@ -1,0 +1,112 @@
+\section{Problem Formulation}
+
+本章では，本研究で扱うシステムモデルと問題設定について説明する．
+
+\subsection{システムモデル（SE(3)上の剛体運動）}
+
+本研究では，複数のエージェント（ドローン）がSE(3)上で運動する状況を考える．各エージェント$i \in \mathcal{A}$の位置と姿勢を$T_i = (p_i, R_i) \in \mathrm{SE}(3)$で表す．ここで，$p_i \in \mathbb{R}^3$はエージェント$i$の位置，$R_i \in \mathrm{SO}(3)$は姿勢を表す回転行列である．
+
+SE(3)上の剛体運動は，以下の微分方程式で記述される．
+\begin{equation}
+\begin{aligned}
+T &= \begin{bmatrix}
+R & p \\
+0 & 1
+\end{bmatrix} \in \mathrm{SE}(3) \\
+\xi^\wedge_B &= \begin{bmatrix}
+[\omega]_\times & v_b \\
+0 & 0
+\end{bmatrix} \in \mathfrak{se}(3) \\
+\dot{T} &= T \xi^\wedge_B
+\label{eq:se3_dynamics}
+\end{aligned}
+\end{equation}
+ここで，$\xi^\wedge_B$はボディ座標系における速度入力であり，$\omega \in \mathbb{R}^3$は角速度，$v_b \in \mathbb{R}^3$はボディ座標系における並進速度，$[\omega]_\times$は$\omega$に対応する歪対称行列である．
+
+世界座標系における速度入力$\xi^\wedge_W$による剛体運動式は以下のように表される．
+\begin{equation}
+\begin{aligned}
+\dot{T} &= \xi^\wedge_W T \\
+\xi_W^\wedge &= (\mathrm{Ad}_T \xi_B)^\wedge \\
+&= \left( \begin{bmatrix}
+R & 0 \\
+[p]_\times R & R
+\end{bmatrix}
+\begin{bmatrix}
+\omega \\
+v_b
+\end{bmatrix} \right)^\wedge \\
+&= \begin{bmatrix}
+R\omega \\
+[p]_\times R\omega + Rv_b
+\end{bmatrix}^\wedge \\
+&= \begin{bmatrix}
+[R\omega]_\times & [p]_\times R\omega + Rv_b \\
+0 & 0
+\end{bmatrix}
+\label{eq:se3_dynamics_world}
+\end{aligned}
+\end{equation}
+ここで，$\mathrm{Ad}_T$はSE(3)の随伴表現である．
+
+ボディ座標系における運動方程式を離散化すると，以下のようになる．
+\begin{equation}
+\begin{aligned}
+T_{k+1} &\simeq T_k + \dot{T}_k \\
+&\simeq T_k + h T_k \xi^\wedge_{B,k} \\
+&= T_k + h \begin{bmatrix}
+R_k & p_k \\
+0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+[\omega_k]_\times & v_k \\
+0 & 0
+\end{bmatrix}
+\label{eq:se3_discrete}
+\end{aligned}
+\end{equation}
+ここで，$h$は離散時間ステップである．
+
+成分分解すると，以下のように表される．
+\begin{equation}
+\begin{aligned}
+R_{k+1} &\simeq R_k \exp(h[\omega_k]_{\times}) \\
+&\simeq R_k(I + h[\omega_k]_{\times}) \\
+p_{k+1} &= h R_k v_k + p_k
+\label{eq:se3_discrete_components}
+\end{aligned}
+\end{equation}
+ここで，$\exp(h[\omega_k]_{\times})$は$h[\omega_k]_{\times}$の行列指数関数であり，小さな$h$に対して$I + h[\omega_k]_{\times}$で近似できる．
+
+\subsection{共有視野の定義と問題設定}
+
+環境内には複数の特徴点$q_l \in \mathbb{R}^3, l \in \mathcal{L}$が存在する．エージェント$i$の観測している特徴点集合を$\mathcal{C}_i$とする．特徴点$q_l$がエージェント$i$の視野内にある条件は以下のように表される．
+\begin{equation}
+\begin{aligned}
+q_l \in \mathcal{C}_i \iff \beta_l^{\top}(p_i)R_i e_c - \cos\Psi_\mathcal{F} > 0
+\label{eq:fov_condition}
+\end{aligned}
+\end{equation}
+ここで，$\beta_l(p_i) = \frac{q_l - p_i}{\|q_l - p_i\|}$は特徴点$q_l$からエージェント$i$への単位方向ベクトル，$e_c = [0 \; 0 \; 1]^\top$はカメラの光軸方向（ボディ座標系のz軸方向），$\Psi_\mathcal{F}$はカメラの視野角の半分である．
+
+特徴点$q_l$が複数のエージェント$i, j \in \mathcal{A}$の共有視野内にある条件は以下のように表される．
+\begin{equation}
+\begin{aligned}
+q_l \in \mathcal{C}_i \cap \mathcal{C}_j \iff (\beta_l^{\top}(p_i)R_i e_c - \cos\Psi_\mathcal{F})(\beta_l^{\top}(p_j)R_j e_c - \cos\Psi_\mathcal{F}) > 0
+\label{eq:shared_fov_condition}
+\end{aligned}
+\end{equation}
+
+本研究の目的は，各エージェントが目標位置$p_i^d$に向かって移動しながら，常に一定数以上の特徴点を共有視野内に保持するような制御入力$\xi_i = (\omega_i, v_i)$を設計することである．さらに，この制御則を分散型で実装することで，各エージェントが局所的な情報のみを用いて制御入力を決定できるようにする．
+
+具体的には，以下の問題を解く．
+\begin{equation}
+\begin{aligned}
+\min_{\xi_i, i \in \mathcal{A}} \sum_{i \in \mathcal{A}} \|p_i^d - p_i\|^2 + \|\xi_i\|^2 \\
+\text{s.t.} \; |\mathcal{C}_i \cap \mathcal{C}_j| \geq m, \; \forall (i,j) \in \mathcal{E}
+\label{eq:problem}
+\end{aligned}
+\end{equation}
+ここで，$\mathcal{E}$はエージェント間の通信グラフの辺集合，$m$は共有視野内に保持すべき特徴点の最小数である．
+
+この問題を解くために，次章では共有視野を保証するためのCBFを設計し，それに基づく制御則を提案する．

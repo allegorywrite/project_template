@@ -1,0 +1,85 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,fleqn,10pt]{SICE_ISCS}
+%\usepackage{url}
+\usepackage{ascmac}
+\usepackage{amssymb}
+%\usepackage{amsmath}
+%\usepackage{hyperref}
+%\usepackage{lmodern}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{comment}
+\usepackage{pdfpages}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\makeatletter
+\@ifundefined{theorem}{%
+  \newtheorem{theorem}{Theorem}
+}{}
+\@ifundefined{definition}{%
+  \newtheorem{definition}{Definition}
+}{}
+\makeatother
+
+%\usepackage{HERE}
+%\usepackage[version=3]{mhchem}%%化学式
+%\usepackage{siunitx}
+% Packages for Japanese language support
+%\usepackage{CJKutf8}
+%\usepackage{otf}
+\usepackage[dvipdfmx]{hyperref}
+%\usepackage{pxjahyper}
+\usepackage{cite}
+\usepackage{ulem} % Package for strikethrough
+\usepackage{caption}
+\captionsetup{font=small} % キャプションのフォントサイズを小さく設定
+\usepackage{float} % figureの位置を固定するためのパッケージ
+\DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\newcommand{\Tabref}[1]{{Table~\ref{#1}}}
+\newcommand{\Eqref}[1]{式~(\ref{#1})}
+\newcommand{\Figref}[1]{{Fig.~\ref{#1}}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\title{SE(3)上における協調自己位置推定のための視野共有を保証する分散型CBF}
+
+\author{著者名${}^{1\dagger}$}
+% The dagger symbol indicates the presenter.
+\speaker{著者名}
+
+\affils{${}^{1}$所属機関, 都道府県, 国\\
+(Tel: +81-xx-xxxx-xxxx; E-mail: example@example.com)\\
+}
+
+\input{sections/abstract}
+
+\begin{document}
+
+% タイトルを手動で設定（シングルカラム用）
+\begin{center}
+\Large\bf SE(3)上における協調自己位置推定のための視野共有を保証する分散型CBF\par
+\vskip1.0em
+\large 著者名${}^{1\dagger}$\par
+\vskip0.5em
+\normalsize ${}^{1}$所属機関, 都道府県, 国\\
+(Tel: +81-xx-xxxx-xxxx; E-mail: example@example.com)\par
+\vskip1.0em
+\end{center}
+
+\noindent{\normalsize{\bf {Abstract:} }本論文では，SE(3)上における協調自己位置推定のための視野共有を保証する分散型制御バリア関数（CBF）を提案する．マルチエージェントVSLAMでは，エージェント間で特徴点のマッチングを行うために視野の重複が必要であるが，従来手法では視野共有を積極的に保証する制御則は十分に検討されていなかった．本研究では，エージェント位置を$T_i=(p_i, R_i)\in \mathrm{SE}(3)$，環境内の特徴点を$q_l\in \mathcal{L}$として，視野内条件に基づく安全集合を定義し，CBFを設計する．さらに，複数の特徴点を追従する場合には確率的アプローチを導入し，複数エージェントの共通特徴点追従のための分散型実装を提案する．また，実機への適用を考慮し，ドローンの二次系ダイナミクスに対応する高次CBF（HOCBF）を設計する．シミュレーション結果から，提案手法は安全制約を満たしながら目標位置への追従が可能であり，分散実装により計算効率とスケーラビリティが向上することが示された．本研究の成果は，ドローンの協調自己位置推定だけでなく，様々なマルチロボットタスクにおいて視野共有を保証するための基盤技術として応用可能である．\par}
+\noindent{\vskip 1em \normalsize {\bf {Keywords:} }制御バリア関数，視野共有，マルチエージェントシステム，SE(3)，分散最適化，高次制御バリア関数\par}
+
+\vskip1.4em
+
+%-----------------------------------------------------------------------
+
+\input{sections/introduction}
+\input{sections/preliminary}
+\input{sections/problem_formulation}
+\input{sections/cbf_for_shared_fov}
+\input{sections/hocbf_for_second_order}
+\input{sections/simulation_results}
+\input{sections/conclusion}
+\input{sections/references}
+
+\end{document}
