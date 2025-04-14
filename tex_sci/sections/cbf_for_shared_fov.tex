@@ -1,6 +1,6 @@
 \section{CBFs for Shared Field of View}
 
-本章では，共有視野を保証するための制御バリア関数（CBF）を設計する．まず単一の特徴点を追従する場合の安全制約を導出し，次に複数の特徴点を追従する場合，さらに複数のエージェントが共通の特徴点を追従する場合へと拡張する．最後に，分散型実装について述べる．
+本章では，共有視野を保証するための制御バリア関数(CBF)を設計する．まず単一の特徴点を追従する場合の安全制約を導出し，次に複数の特徴点を追従する場合，さらに複数のエージェントが共通の特徴点を追従する場合へと拡張する．最後に，分散型実装について述べる．
 
 \subsection{単一特徴点追従の安全制約}
 
@@ -352,9 +352,9 @@ f_i &= \begin{bmatrix}
 
 \subsection{分散型実装}
 
-不等式制約付き最適化問題を分散化する方法はいくつかあるが，本研究では主双対乗数法（Primal-Dual Method of Multipliers, PDMM）を用いる．PDMMは，不等式制約を処理する場合にADMMのようにスラック変数修正が必要なく，より効率的に解くことができる\cite{Zhang2024}．
+不等式制約付き最適化問題を分散化する方法はいくつかあるが，本研究では主双対乗数法(Primal-Dual Method of Multipliers, PDMM)を用いる．PDMMは，不等式制約を処理する場合にADMMのようにスラック変数修正が必要なく，より効率的に解くことができる\cite{Zhang2024}．
 
-IEQ-PDMM（inequality constraint primal-dual method of multipliers）を用いて上の式を分散化すると以下のようになる．
+IEQ-PDMM(inequality constraint primal-dual method of multipliers)を用いて上の式を分散化すると以下のようになる．
 \begin{equation}
 \begin{aligned}
 \xi_i &= \underset{\xi_i}{\mathrm{argmin}} \:J_i(\xi_i)+z_{i|j}^\top A_{ij}\xi_i+\frac{c}{2}\|A_{ij}\xi_i-\frac{1}{2}\gamma_0\gamma\|^2 \\

@@ -1,0 +1,156 @@
+\section{シミュレーション結果}
+
+本章では，提案手法の有効性を検証するためのシミュレーション結果を示す．まず，単一特徴点および複数特徴点を追従する場合のシミュレーション結果を示し，次に分散実装の性能評価を行う．
+
+\subsection{単一特徴点追従のシミュレーション}
+
+まず，単一の特徴点を追従する場合のシミュレーション結果を示す．シミュレーション設定は以下の通りである：
+\begin{itemize}
+\item エージェント数：2
+\item 特徴点数：1
+\item 視野角：$\Psi_\mathcal{F} = 60^\circ$
+\item CBFパラメータ：$\gamma_0 = 1.0$
+\item サンプリング時間：$h = 0.01$ [s]
+\item シミュレーション時間：10 [s]
+\item 初期位置：$p_1 = [0, 0, 1]^\top$, $p_2 = [2, 0, 1]^\top$
+\item 初期姿勢：$R_1 = I$, $R_2 = I$
+\item 特徴点位置：$q = [1, 1, 0]^\top$
+\item 目標位置：$p_1^d = [0, 2, 1]^\top$, $p_2^d = [2, 2, 1]^\top$
+\end{itemize}
+
+図\ref{fig:single_trajectory}に，エージェントの軌跡と特徴点の位置を示す．青線と赤線はそれぞれエージェント1と2の軌跡を表し，黒点は特徴点の位置を表す．また，各エージェントの視野錐台を薄い色で表示している．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/single_trajectory.png}
+% \caption{単一特徴点追従におけるエージェントの軌跡と視野錐台}
+% \label{fig:single_trajectory}
+% \end{figure}
+
+図\ref{fig:single_cbf}に，CBF値の時間変化を示す．CBF値が常に正であることから，特徴点が常に両方のエージェントの視野内にあることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/single_cbf.png}
+% \caption{単一特徴点追従におけるCBF値の時間変化}
+% \label{fig:single_cbf}
+% \end{figure}
+
+図\ref{fig:single_control}に，制御入力の時間変化を示す．制御入力は滑らかであり，実機への適用が可能であることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/single_control.png}
+% \caption{単一特徴点追従における制御入力の時間変化}
+% \label{fig:single_control}
+% \end{figure}
+
+\subsection{複数特徴点追従のシミュレーション}
+
+次に，複数の特徴点を追従する場合のシミュレーション結果を示す．シミュレーション設定は以下の通りである：
+\begin{itemize}
+\item エージェント数：2
+\item 特徴点数：5
+\item 視野角：$\Psi_\mathcal{F} = 60^\circ$
+\item CBFパラメータ：$\gamma_0 = 1.0$, $q = 0.8$
+\item サンプリング時間：$h = 0.01$ [s]
+\item シミュレーション時間：10 [s]
+\item 初期位置：$p_1 = [0, 0, 1]^\top$, $p_2 = [2, 0, 1]^\top$
+\item 初期姿勢：$R_1 = I$, $R_2 = I$
+\item 特徴点位置：$q_1 = [1, 1, 0]^\top$, $q_2 = [1, 0, 0]^\top$, $q_3 = [1, -1, 0]^\top$, $q_4 = [0, 0, 0]^\top$, $q_5 = [2, 0, 0]^\top$
+\item 目標位置：$p_1^d = [0, 2, 1]^\top$, $p_2^d = [2, 2, 1]^\top$
+\end{itemize}
+
+図\ref{fig:multi_trajectory}に，エージェントの軌跡と特徴点の位置を示す．青線と赤線はそれぞれエージェント1と2の軌跡を表し，黒点は特徴点の位置を表す．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/multi_trajectory.png}
+% \caption{複数特徴点追従におけるエージェントの軌跡と視野錐台}
+% \label{fig:multi_trajectory}
+% \end{figure}
+
+図\ref{fig:multi_cbf}に，CBF値の時間変化を示す．CBF値が常に正であることから，少なくとも$q = 0.8$の確率で特徴点が両方のエージェントの視野内にあることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/multi_cbf.png}
+% \caption{複数特徴点追従におけるCBF値の時間変化}
+% \label{fig:multi_cbf}
+% \end{figure}
+
+図\ref{fig:multi_probability}に，各特徴点の可視確率$\phi_{ij}^l$の時間変化を示す．特徴点によって可視確率が異なり，一部の特徴点は視野から外れることもあるが，全体として少なくとも$q = 0.8$の確率で特徴点が観測可能であることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/multi_probability.png}
+% \caption{複数特徴点追従における各特徴点の可視確率の時間変化}
+% \label{fig:multi_probability}
+% \end{figure}
+
+\subsection{分散実装の性能評価}
+
+最後に，分散実装の性能評価を行う．ここでは，プライマル・デュアル乗数法(PDMM)を用いた分散実装と中央集権的な実装を比較する．シミュレーション設定は以下の通りである：
+\begin{itemize}
+\item エージェント数：4
+\item 特徴点数：10
+\item 視野角：$\Psi_\mathcal{F} = 60^\circ$
+\item CBFパラメータ：$\gamma_0 = 1.0$, $q = 0.8$
+\item PDMMパラメータ：$c = 1.0$, 反復回数 = 5
+\item サンプリング時間：$h = 0.01$ [s]
+\item シミュレーション時間：10 [s]
+\end{itemize}
+
+図\ref{fig:distributed_trajectory}に，4つのエージェントの軌跡と特徴点の位置を示す．異なる色の線は各エージェントの軌跡を表し，黒点は特徴点の位置を表す．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/distributed_trajectory.png}
+% \caption{分散実装におけるエージェントの軌跡と視野錐台}
+% \label{fig:distributed_trajectory}
+% \end{figure}
+
+図\ref{fig:distributed_cbf}に，分散実装と中央集権的な実装におけるCBF値の時間変化を比較する．実線は分散実装，破線は中央集権的な実装を表す．分散実装でも中央集権的な実装と同様にCBF値が常に正であり，安全制約が満たされていることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/distributed_cbf.png}
+% \caption{分散実装と中央集権的な実装におけるCBF値の比較}
+% \label{fig:distributed_cbf}
+% \end{figure}
+
+図\ref{fig:distributed_error}に，分散実装と中央集権的な実装における制御入力の誤差ノルムの時間変化を示す．誤差ノルムは以下のように定義される：
+\begin{equation}
+\begin{aligned}
+e(t) = \frac{1}{N}\sum_{i=1}^N \|u_i^{\text{dist}}(t) - u_i^{\text{cent}}(t)\|
+\label{eq:error_norm}
+\end{aligned}
+\end{equation}
+ここで，$u_i^{\text{dist}}(t)$と$u_i^{\text{cent}}(t)$はそれぞれ分散実装と中央集権的な実装におけるエージェント$i$の制御入力である．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/distributed_error.png}
+% \caption{分散実装と中央集権的な実装における制御入力の誤差ノルム}
+% \label{fig:distributed_error}
+% \end{figure}
+
+図\ref{fig:distributed_iteration}に，PDMMの反復回数と制御入力の誤差ノルムの関係を示す．反復回数が増えるにつれて誤差ノルムが減少し，5回程度の反復で十分な精度が得られることがわかる．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/distributed_iteration.png}
+% \caption{PDMMの反復回数と制御入力の誤差ノルムの関係}
+% \label{fig:distributed_iteration}
+% \end{figure}
+
+図\ref{fig:distributed_computation}に，エージェント数と計算時間の関係を示す．中央集権的な実装では，エージェント数の増加に伴い計算時間が急激に増加するのに対し，分散実装では計算時間の増加が緩やかであることがわかる．これは，分散実装では各エージェントが並列に計算を行うためである．
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\linewidth]{fig/distributed_computation.png}
+% \caption{エージェント数と計算時間の関係}
+% \label{fig:distributed_computation}
+% \end{figure}
+
+以上のシミュレーション結果から，提案手法は単一特徴点および複数特徴点を追従する場合において，共有視野を保証できることが確認された．また，分散実装においても中央集権的な実装と同等の性能を維持しつつ，計算効率が向上することが示された．これにより，提案手法は多数のエージェントを対象とする実システムへの適用が可能であると考えられる．

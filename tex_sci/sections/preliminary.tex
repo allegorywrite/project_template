@@ -1,10 +1,10 @@
 \section{Preliminary: Control Barrier Function}
 
-本章では，本研究の基礎となる制御バリア関数（Control Barrier Function, CBF）の概念について説明する．
+本章では，本研究の基礎となる制御バリア関数(Control Barrier Function, CBF)の概念について説明する．
 
 \subsection{制御バリア関数の基本概念}
 
-制御バリア関数は，システム状態がある安全集合内に留まることを保証するためのLyapunov関数に類似した概念である．もともとはバリア関数やバリア証明の枠組みに基づいており，制御Lyapunov関数（CLF）と統合した安全・安定制御のための二次計画問題（QP）による実装手法が提案されている\cite{Ames2017}．
+制御バリア関数は，システム状態がある安全集合内に留まることを保証するためのLyapunov関数に類似した概念である．もともとはバリア関数やバリア証明の枠組みに基づいており，制御Lyapunov関数(CLF)と統合した安全・安定制御のための二次計画問題(QP)による実装手法が提案されている\cite{Ames2017}．
 
 制御対象のシステムを以下のように表す．
 \begin{equation}
@@ -39,7 +39,7 @@
 
 CBFの条件\Eqref{eq:cbf_condition}を満たす制御入力$u$を用いると，システム\Eqref{eq:system}の解は常に安全集合$\mathcal{C}$内に留まることが保証される．つまり，$x(0) \in \mathcal{C}$ならば，任意の$t \geq 0$に対して$x(t) \in \mathcal{C}$となる．
 
-実際の制御入力を求めるために，以下のような二次計画問題（QP）を解く．
+実際の制御入力を求めるために，以下のような二次計画問題(QP)を解く．
 \begin{equation}
 \begin{aligned}
 u^* = \arg\min_{u \in \mathbb{R}^m} & \|u - u_{\text{nom}}\|^2 \\
@@ -51,7 +51,7 @@ u^* = \arg\min_{u \in \mathbb{R}^m} & \|u - u_{\text{nom}}\|^2 \\
 
 \subsection{高次制御バリア関数}
 
-従来のCBFは制約関数の相対次数が1であることを仮定していたが，多くの実システムでは安全制約が高次微分に依存するため，高次制御バリア関数（High Order Control Barrier Functions, HOCBF）が提案されている\cite{Xiao2022}．
+従来のCBFは制約関数の相対次数が1であることを仮定していたが，多くの実システムでは安全制約が高次微分に依存するため，高次制御バリア関数(High Order Control Barrier Functions, HOCBF)が提案されている\cite{Xiao2022}．
 
 関数$h(x)$の相対次数が$r > 1$の場合，以下のように補助関数の連鎖を定義する．
 \begin{equation}
@@ -64,7 +64,7 @@ u^* = \arg\min_{u \in \mathbb{R}^m} & \|u - u_{\text{nom}}\|^2 \\
 \label{eq:hocbf_chain}
 \end{aligned}
 \end{equation}
-ここで，$\alpha_i$（$i = 1, 2, \ldots, r$）は拡張クラス$\mathcal{K}$関数である．
+ここで，$\alpha_i$($i = 1, 2, \ldots, r$)は拡張クラス$\mathcal{K}$関数である．
 
 \begin{definition}[高次制御バリア関数]
 相対次数$r$の連続微分可能な関数$h: \mathbb{R}^n \rightarrow \mathbb{R}$について，\Eqref{eq:hocbf_chain}で定義される補助関数の連鎖に対して，任意の$x \in \mathcal{C}_r = \{x \in \mathbb{R}^n : \psi_i(x) \geq 0, i = 0, 1, \ldots, r-1\}$に対して以下の条件を満たす制御入力$u \in \mathbb{R}^m$が存在するとき，$h$を高次制御バリア関数と呼ぶ．

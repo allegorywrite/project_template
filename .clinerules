@@ -1,6 +1,6 @@
 ### 目的
 materials/integrated.mdの内容を論文の形式に変換して
-tex/template_v1.0.texを執筆する
+tex_sample/template_v1.0.texを執筆する
 
 ### 手順
 1. 論文を執筆するためのサーベイ要件を詳細にまとめてmdファイルを作成する
@@ -21,36 +21,36 @@ surveys/task_1/answer_background.md, surveys/task_1/answer_contribution.md, surv
 
 ・大まかな章立ては以下に従ってください
 
-Introduction（序論）
+Introduction(序論)
 
 共有視野保証の重要性と背景
 既存研究の課題
 本研究の貢献
-Preliminary: Control Barrier Function（予備知識）
+Preliminary: Control Barrier Function(予備知識)
 
 CBFの基本概念
 高次CBFの説明
-Problem Formulation（問題設定）
+Problem Formulation(問題設定)
 
-システムモデル（SE(3)上の剛体運動）
+システムモデル(SE(3)上の剛体運動)
 共有視野の定義と問題設定
-CBFs for Shared Field of View（共有視野のためのCBF）
+CBFs for Shared Field of View(共有視野のためのCBF)
 
 単一特徴点追従の安全制約
 複数特徴点追従の安全制約
 複数エージェントの共通特徴点追従
 分散型実装
-Higher-Order CBFs for Second-Order Systems（二次系システムのための高次CBF）
+Higher-Order CBFs for Second-Order Systems(二次系システムのための高次CBF)
 
 SE(3)における離散ダイナミクス
 ホロノミック系とQP定式化
 非ホロノミック系への拡張
 複数エージェント・複数特徴点の場合
-Simulation Results（シミュレーション結果）
+Simulation Results(シミュレーション結果)
 
 単一/複数特徴点のシミュレーション
 分散実装の性能評価
-Conclusion（結論）
+Conclusion(結論)
 
 研究成果のまとめ
 今後の課題

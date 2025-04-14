@@ -3,19 +3,19 @@
 ## 1. 書き出し・序論のためのサーベイ要件
 
 ### 1.1 共有視野保証の背景と重要性
-- マルチロボットシステムにおける共有視野（Shared Field of View, CoFoV）の概念と定義
-- 共有視野が重要となる応用分野（監視、探索救助、協調作業など）
+- マルチロボットシステムにおける共有視野(Shared Field of View, CoFoV)の概念と定義
+- 共有視野が重要となる応用分野(監視、探索救助、協調作業など)
 - 視野制約がマルチロボットシステムの性能に与える影響
 - 共有視野保証の技術的課題
 
-### 1.2 制御バリア関数（CBF）の基礎と発展
+### 1.2 制御バリア関数(CBF)の基礎と発展
 - CBFの基本概念と安全制約への応用
 - CBFを用いた安全保証制御の最近の発展
-- 高次CBF（HOCBFs）の理論と応用
+- 高次CBF(HOCBFs)の理論と応用
 - CBFの分散実装に関する研究動向
 
 ### 1.3 既存の視野保証手法
-- 従来の視野制約付き制御手法（ポテンシャル法、MPC、最適制御など）
+- 従来の視野制約付き制御手法(ポテンシャル法、MPC、最適制御など)
 - CBFを用いた視野制約の実装例
 - 確率的アプローチによる視野保証
 - 既存手法の限界と課題
@@ -52,11 +52,11 @@
 3. Hatanaka, T., et al. "Vision-based cooperative estimation via multi-agent optimization"
 4. Spica, R., et al. "Active structure from motion for spherical and cylindrical targets"
 
-### 2.3 制御バリア関数（CBF）の最新動向
+### 2.3 制御バリア関数(CBF)の最新動向
 - CBFの理論的発展と応用拡大
-- 高次CBF（HOCBFs）の設計と安定性解析
+- 高次CBF(HOCBFs)の設計と安定性解析
 - 確率的CBFと不確かさの取り扱い
-- CBFと他の制御手法（MPC、最適制御など）の統合
+- CBFと他の制御手法(MPC、最適制御など)の統合
 
 以下の論文を調査：
 1. Ames, A.D., et al. "Control barrier function based quadratic programs for safety critical systems"
@@ -66,7 +66,7 @@
 
 ### 2.4 分散型CBFと最適化手法
 - 分散型CBFの設計と実装
-- 分散型最適化手法（ADMM、PDMM）とCBFの統合
+- 分散型最適化手法(ADMM、PDMM)とCBFの統合
 - マルチエージェントシステムにおける分散型安全制約
 - 通信制約下での分散型CBF
 
@@ -124,8 +124,8 @@
 
 ## 5. 調査方法
 
-1. 学術データベース（IEEE Xplore, Google Scholar, ACM Digital Library）での文献検索
-2. 主要国際会議（ICRA, IROS, CDC, ACC）の最新プロシーディングスの調査
-3. 主要ジャーナル（IEEE Transactions on Robotics, IEEE Transactions on Automatic Control）の最新号の調査
+1. 学術データベース(IEEE Xplore, Google Scholar, ACM Digital Library)での文献検索
+2. 主要国際会議(ICRA, IROS, CDC, ACC)の最新プロシーディングスの調査
+3. 主要ジャーナル(IEEE Transactions on Robotics, IEEE Transactions on Automatic Control)の最新号の調査
 4. 引用ネットワーク分析による関連文献の特定
-5. 著名研究者のウェブサイトやプレプリントサーバー（arXiv）の調査
+5. 著名研究者のウェブサイトやプレプリントサーバー(arXiv)の調査

@@ -2,9 +2,9 @@
 
 本章では，本研究で扱うシステムモデルと問題設定について説明する．
 
-\subsection{システムモデル（SE(3)上の剛体運動）}
+\subsection{システムモデル(SE(3)上の剛体運動)}
 
-本研究では，複数のエージェント（ドローン）がSE(3)上で運動する状況を考える．各エージェント$i \in \mathcal{A}$の位置と姿勢を$T_i = (p_i, R_i) \in \mathrm{SE}(3)$で表す．ここで，$p_i \in \mathbb{R}^3$はエージェント$i$の位置，$R_i \in \mathrm{SO}(3)$は姿勢を表す回転行列である．
+本研究では，複数のエージェント(ドローン)がSE(3)上で運動する状況を考える．各エージェント$i \in \mathcal{A}$の位置と姿勢を$T_i = (p_i, R_i) \in \mathrm{SE}(3)$で表す．ここで，$p_i \in \mathbb{R}^3$はエージェント$i$の位置，$R_i \in \mathrm{SO}(3)$は姿勢を表す回転行列である．
 
 SE(3)上の剛体運動は，以下の微分方程式で記述される．
 \begin{equation}
@@ -87,7 +87,7 @@ q_l \in \mathcal{C}_i \iff \beta_l^{\top}(p_i)R_i e_c - \cos\Psi_\mathcal{F} > 0
 \label{eq:fov_condition}
 \end{aligned}
 \end{equation}
-ここで，$\beta_l(p_i) = \frac{q_l - p_i}{\|q_l - p_i\|}$は特徴点$q_l$からエージェント$i$への単位方向ベクトル，$e_c = [0 \; 0 \; 1]^\top$はカメラの光軸方向（ボディ座標系のz軸方向），$\Psi_\mathcal{F}$はカメラの視野角の半分である．
+ここで，$\beta_l(p_i) = \frac{q_l - p_i}{\|q_l - p_i\|}$は特徴点$q_l$からエージェント$i$への単位方向ベクトル，$e_c = [0 \; 0 \; 1]^\top$はカメラの光軸方向(ボディ座標系のz軸方向)，$\Psi_\mathcal{F}$はカメラの視野角の半分である．
 
 特徴点$q_l$が複数のエージェント$i, j \in \mathcal{A}$の共有視野内にある条件は以下のように表される．
 \begin{equation}

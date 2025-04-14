@@ -1,4 +1,5 @@
-\documentclass{jarticle}
+% \documentclass[12pt]{jarticle}
+\documentclass[10.5pt]{jarticle}
 
 % Language setting
 % Replace `english' with e.g. `spanish' to change the document language
@@ -8,8 +9,8 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
-% \usepackage[letterpaper,top=1cm,bottom=1cm,left=1cm,right=1cm,marginparwidth=1cm]{geometry}
+% \usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage[letterpaper,top=2cm,bottom=3cm,left=1cm,right=1cm,marginparwidth=1cm]{geometry}
 
 % Useful packages
 \usepackage{amsmath}
@@ -35,7 +36,7 @@
 \usepackage{algorithmic}
 \usepackage{tabularx}
 
-% \usepackage{fancybx}
+% 数式サイズを大きくする設定
 \newcommand{\mathbm}[1]{{\mbox{\boldmath $#1$}}}
 \newcommand{\rd}{\partial}
 \newcommand{\dd}[2]{\dfrac{\partial #1}{\partial #2}}
@@ -63,8 +64,8 @@
 \theoremstyle{definition}
 \newtheorem{dfn}{Definition}
 
-\title{LaTeXサンプル論文}
-\author{サンプル著者}
+\title{SE(3)上における協調自己位置推定のための\\視野共有を保証する分散型CBF}
+\author{有田 朋樹}
 \date{\today}
 
 \begin{document}
@@ -72,6 +73,11 @@
 
 \input{sections/abstract}
 \input{sections/introduction}
+\input{sections/preliminary}
+\input{sections/problem_formulation}
+\input{sections/cbf_for_shared_fov}
+\input{sections/hocbf_for_second_order}
+\input{sections/simulation_results}
 \input{sections/conclusion}
 \input{sections/references}
 

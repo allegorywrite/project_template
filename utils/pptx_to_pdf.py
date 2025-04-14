@@ -34,7 +34,7 @@ def convert_pptx_to_pdf(pptx_path, output_dir=None):
     pdf_file = output_dir / f"{pptx_path.stem}.pdf"
     
     try:
-        # 方法1: LibreOfficeを使用する方法（インストールされている場合）
+        # 方法1: LibreOfficeを使用する方法(インストールされている場合)
         try:
             print(f"LibreOfficeを使用してPDFに変換しています: {pptx_path}")
             result = subprocess.run(
@@ -48,7 +48,7 @@ def convert_pptx_to_pdf(pptx_path, output_dir=None):
         except (subprocess.SubprocessError, FileNotFoundError) as e:
             print(f"LibreOfficeでの変換に失敗しました: {e}")
             
-        # 方法2: unoconvを使用する方法（インストールされている場合）
+        # 方法2: unoconvを使用する方法(インストールされている場合)
         try:
             print(f"unoconvを使用してPDFに変換しています: {pptx_path}")
             result = subprocess.run(
@@ -73,11 +73,11 @@ def convert_pptx_to_pdf(pptx_path, output_dir=None):
             # 各スライドを画像として保存
             for i, slide in enumerate(prs.slides):
                 # スライドの画像を保存する処理
-                # （この部分は実装が複雑なため、ここでは省略）
+                # (この部分は実装が複雑なため、ここでは省略)
                 pass
             
             # 画像をPDFに結合する処理
-            # （この部分は実装が複雑なため、ここでは省略）
+            # (この部分は実装が複雑なため、ここでは省略)
             pass
         
         print(f"変換に失敗しました。LibreOfficeまたはunoconvをインストールしてください。")
